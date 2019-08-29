@@ -75,6 +75,13 @@ import org.springframework.util.xml.XmlValidationModeDetector;
  * @see org.springframework.beans.factory.support.DefaultListableBeanFactory
  * @see org.springframework.context.support.GenericApplicationContext
  */
+
+/**
+ * （1）通过继承自AbstractBeanDefinitionReader中的方法，来使用ResourceLoader将资源文件路径转换为对应的Resource文件。
+ * （2）通过DocumentLoader对Resource文件进行转换，将Resource文件转换为Document文件。
+ * （3）通过实现接口BeanDefinitionDocumentReader的DefaultBeanDefinitionDocumentReader类对Document进行解析，并使
+ * 用BeanDefinitionParserDelegate对Element进行解析。
+ */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
@@ -117,6 +124,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	@Nullable
 	private NamespaceHandlerResolver namespaceHandlerResolver;
 
+	//通过DocumentLoader对Resource文件进行转换，将Resource文件转换为Document文件
 	private DocumentLoader documentLoader = new DefaultDocumentLoader();
 
 	@Nullable

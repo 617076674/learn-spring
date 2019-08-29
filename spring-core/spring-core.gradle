@@ -95,6 +95,7 @@ dependencies {
 		exclude group: "stax", module: "stax-api"
 	}
 	testCompile(project(":kotlin-coroutines"))
+	compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 jar {

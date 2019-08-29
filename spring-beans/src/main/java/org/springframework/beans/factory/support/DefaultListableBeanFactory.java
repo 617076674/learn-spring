@@ -118,6 +118,15 @@ import org.springframework.util.StringUtils;
  * @see #getBean
  * @see #resolveDependency
  */
+
+/**
+ * DefaultListableBeanFactory是整个bean加载的核心部分，是Spring注册及加载bean的默认实现，
+ * 而对于XmlBeanFactory与DefaultBeanDefinitionReader不同的地方其实是在XmlBeanFactory
+ * 中使用了自定义的XML读取器XmlBeanDefinitionReader，实现了个性化的BeanDefinitionReader读取。
+ *
+ * DefaultListableBeanFactory继承了AbstractAutowireCapableBeanFactory并实现了
+ * ConfigurableListableBeanFactory以及BeanDefinitionRegistry接口。
+ */
 @SuppressWarnings("serial")
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {

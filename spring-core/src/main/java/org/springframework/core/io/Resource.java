@@ -49,6 +49,16 @@ import org.springframework.lang.Nullable;
  * @see ByteArrayResource
  * @see InputStreamResource
  */
+
+/**
+ * 为什么Spring对其内部使用到的资源实现了自己的抽象结构：Resource接口封装底层资源？
+ *
+ * 在Java中，将不同来源的资源抽象成URL，通过注册不同的handler（URLStreamHandler）来处理不同来源的资源的读取逻辑，一般handler的类型
+ * 使用不同前缀（协议，Protocol）来识别，如"file:""http:""jar:"等，然而URL没有默认定义相对Classpath或ServletContext等资源的
+ * handler，虽然可以注册自己的URLStreamHandler来解析特定的URL前缀（协议），比如"classpath:"，然而这需要了解URL的实现机制，而且URL
+ * 也没有提供基本的方法，如检查当前资源是否存在、检查当前资源是否可读等方法。因而Spring对其内部使用到的资源实现了自己的抽象结构：
+ * Resource接口封装底层资源。
+ */
 public interface Resource extends InputStreamSource {
 
 	/**
@@ -57,7 +67,7 @@ public interface Resource extends InputStreamSource {
 	 * existence of a {@code Resource} handle only guarantees a valid
 	 * descriptor handle.
 	 */
-	boolean exists();
+	boolean exists();	//存在性
 
 	/**
 	 * Indicate whether non-empty contents of this resource can be read via
@@ -70,7 +80,7 @@ public interface Resource extends InputStreamSource {
 	 * @see #getInputStream()
 	 * @see #exists()
 	 */
-	default boolean isReadable() {
+	default boolean isReadable() {	//可读性
 		return exists();
 	}
 
@@ -80,7 +90,7 @@ public interface Resource extends InputStreamSource {
 	 * and must be read and closed to avoid resource leaks.
 	 * <p>Will be {@code false} for typical resource descriptors.
 	 */
-	default boolean isOpen() {
+	default boolean isOpen() {	//是否处于打开状态
 		return false;
 	}
 
@@ -155,7 +165,7 @@ public interface Resource extends InputStreamSource {
 	 * @return the resource handle for the relative resource
 	 * @throws IOException if the relative resource cannot be determined
 	 */
-	Resource createRelative(String relativePath) throws IOException;
+	Resource createRelative(String relativePath) throws IOException;	//基于当前资源创建一个相对资源
 
 	/**
 	 * Determine a filename for this resource, i.e. typically the last
@@ -173,6 +183,6 @@ public interface Resource extends InputStreamSource {
 	 * from their {@code toString} method.
 	 * @see Object#toString()
 	 */
-	String getDescription();
+	String getDescription();	//用来在错误处理中打印信息
 
 }
