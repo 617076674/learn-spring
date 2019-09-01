@@ -135,6 +135,7 @@ public class EncodedResource implements InputStreamSource {
 	 * @see #requiresReader()
 	 * @see #getInputStream()
 	 */
+	//EncodedResource用于对资源文件的编码进行处理，其中的主要逻辑主要体现在getReader()方法中
 	public Reader getReader() throws IOException {
 		if (this.charset != null) {
 			return new InputStreamReader(this.resource.getInputStream(), this.charset);
